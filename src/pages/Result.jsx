@@ -126,7 +126,11 @@ const Result = () => {
     );
 
     // Save PDF
-    doc.save("AlmaBetter-Certificate.pdf"|| `${user.name}-Certificate.pdf`);
+   doc.save(
+  user?.name
+    ? `${user.name}-Certificate.pdf`
+    : "AlmaBetter-Certificate.pdf"
+);
   };
 
   return (
