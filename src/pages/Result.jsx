@@ -125,10 +125,10 @@ const Result = () => {
       { align: "center" }
     );
 
-    // Save PDF
-   doc.save(
-  user?.name
-    ? `${user.name}-Certificate.pdf`
+// Save PDF
+doc.save(
+  user?.name && latestQuiz?.quiz
+    ? `${user.name}-${latestQuiz.quiz}-Certificate.pdf`
     : "AlmaBetter-Certificate.pdf"
 );
   };

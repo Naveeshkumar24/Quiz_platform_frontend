@@ -166,129 +166,88 @@ const Quiz = () => {
   }, [time]);
 
   // Finish Quiz
-  const finishQuiz = () => {
-    dispatch(setScore(score));
+const finishQuiz = (
+  finalScore = score
+) => {
 
-    const scores =
-      JSON.parse(localStorage.getItem("scores")) || [];
+  // Save Redux Score
+  dispatch(setScore(finalScore));
 
-    scores.push({
-      username: user.name,
-      score: score,
-      quiz: quiz.title,
-      quizId: quiz.id,
-      date: new Date().toLocaleDateString(),
-    });
+  // Save Scores
+  const scores =
+    JSON.parse(
+      localStorage.getItem("scores")
+    ) || [];
 
-    localStorage.setItem(
-      "scores",
-      JSON.stringify(scores)
-    );
+  scores.push({
+    username: user.name,
+    score: finalScore,
+    quiz: quiz.title,
+    quizId: quiz.id,
+    date:
+      new Date().toLocaleDateString(),
+  });
 
-    // Lock Attempt
-    attempts[
-      `${user.name}_${quiz.id}`
-    ] = true;
+  localStorage.setItem(
+    "scores",
+    JSON.stringify(scores)
+  );
 
-    localStorage.setItem(
-      "attempts",
-      JSON.stringify(attempts)
-    );
+  // Lock Attempt
+  attempts[
+    `${user.name}_${quiz.id}`
+  ] = true;
 
-    // Clear Quiz State
-    localStorage.removeItem(
-      `timer_${id}`
-    );
+  localStorage.setItem(
+    "attempts",
+    JSON.stringify(attempts)
+  );
 
-    localStorage.removeItem(
-      `currentQuestion_${id}`
-    );
+  // Clear Quiz State
+  localStorage.removeItem(
+    `timer_${id}`
+  );
 
-    localStorage.removeItem(
-      `quizScore_${id}`
-    );
+  localStorage.removeItem(
+    `currentQuestion_${id}`
+  );
 
-    // Prevent Back
-    navigate("/result", {
-      replace: true,
-    });
-  };
+  localStorage.removeItem(
+    `quizScore_${id}`
+  );
+
+  // Navigate Result Page
+  navigate("/result", {
+    replace: true,
+  });
+};
 
   // Handle Answer
-  const handleAnswer = (option) => {
-    let updatedScore = score;
+ // Handle Answer
+const handleAnswer = (option) => {
 
-    if (
-      option ===
-      quiz.questions[current].answer
-    ) {
-      const updatedScore =
-  option ===
-  quiz.questions[current].answer
-    ? score + 1
-    : score;
+  // Calculate updated score
+  const updatedScore =
+    option ===
+    quiz.questions[current].answer
+      ? score + 1
+      : score;
 
-setLocalScore(updatedScore);
-    }
+  // Update local score state
+  setLocalScore(updatedScore);
 
-    // Move ONLY Forward
-    if (
-      current + 1 <
-      quiz.questions.length
-    ) {
-      setCurrent(current + 1);
-    } else {
-      dispatch(setScore(updatedScore));
+  // Move to next question
+  if (
+    current + 1 <
+    quiz.questions.length
+  ) {
+    setCurrent(current + 1);
+  } else {
 
-      const scores =
-        JSON.parse(
-          localStorage.getItem(
-            "scores"
-          )
-        ) || [];
-
-      scores.push({
-        username: user.name,
-        score: updatedScore,
-        quiz: quiz.title,
-        quizId: quiz.id,
-        date: new Date().toLocaleDateString(),
-      });
-
-      localStorage.setItem(
-        "scores",
-        JSON.stringify(scores)
-      );
-
-      // Lock Attempt
-      attempts[
-        `${user.name}_${quiz.id}`
-      ] = true;
-
-      localStorage.setItem(
-        "attempts",
-        JSON.stringify(attempts)
-      );
-
-      // Clear Quiz State
-      localStorage.removeItem(
-        `timer_${id}`
-      );
-
-      localStorage.removeItem(
-        `currentQuestion_${id}`
-      );
-
-      localStorage.removeItem(
-        `quizScore_${id}`
-      );
-
-      navigate("/result", {
-        replace: true,
-      });
-    }
-  };
-
+    // Finish quiz with final score
+    finishQuiz(updatedScore);
+  }
+};
   // Format Timer
   const formatTime = (
     seconds
