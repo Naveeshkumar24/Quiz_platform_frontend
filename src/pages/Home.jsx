@@ -42,9 +42,6 @@ const Home = () => {
             No Quizzes Available
           </h2>
 
-          <p className="text-gray-300 text-lg">
-            Create quizzes from Admin Dashboard
-          </p>
 
         </div>
       ) : (
