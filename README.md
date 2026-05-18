@@ -386,7 +386,7 @@ Once a user attempts a quiz:
 
 ## Home Page
 
-![alt text](.src/assets/image-1.png)
+![alt text](./src/assets/image-1.png)
 
 ---
 
