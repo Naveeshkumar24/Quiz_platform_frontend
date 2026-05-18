@@ -20,8 +20,7 @@ This application simulates a real-world online examination system with:
 ## Frontend Deployment
 
 ```txt
-https://your-vercel-link.vercel.app
-```
+https://quiz-platform-frontend-nu.vercel.app/```
 
 ---
 
@@ -191,7 +190,7 @@ npm run build
 This project is deployed using:
 
 * Vercel
-
+https://quiz-platform-frontend-nu.vercel.app/
 ---
 
 # 🔑 Demo Credentials
@@ -200,6 +199,7 @@ This project is deployed using:
 
 ```txt
 Username: admin
+password: admin@12
 ```
 
 ---
@@ -379,31 +379,34 @@ Once a user attempts a quiz:
 
 ## Login Page
 
-(Add screenshot here)
+
+![alt text](image.png)
 
 ---
 
 ## Home Page
 
-(Add screenshot here)
+![alt text](image-1.png)
 
 ---
 
 ## Admin Dashboard
 
-(Add screenshot here)
+![alt text](image-2.png)
 
 ---
 
 ## Quiz Page
 
-(Add screenshot here)
+
+![alt text](image-3.png)
 
 ---
 
 ## Leaderboard
 
-(Add screenshot here)
+
+![alt text](image-4.png)
 
 ---
 
