@@ -379,37 +379,31 @@ Once a user attempts a quiz:
 
 ## Login Page
 
-
-![alt text](image.png)
+![Login Page](./src/assets/image.png)
 
 ---
 
 ## Home Page
 
-![alt text](./src/assets/image-1.png)
+![Home Page](./src/assets/image-1.png)
 
 ---
 
 ## Admin Dashboard
 
-![alt text](image-2.png)
+![Admin Dashboard](./src/assets/image-2.png)
 
 ---
 
 ## Quiz Page
 
-
-![alt text](image-3.png)
+![Quiz Page](./src/assets/image-3.png)
 
 ---
 
 ## Leaderboard
 
-
-![alt text](image-4.png)
-
----
-
+![Leaderboard](./src/assets/image-4.png)
 # 🎥 Demo Video
 
 ```txt
