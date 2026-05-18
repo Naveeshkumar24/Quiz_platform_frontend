@@ -222,9 +222,13 @@ const Quiz = () => {
       option ===
       quiz.questions[current].answer
     ) {
-      updatedScore = score + 1;
+      const updatedScore =
+  option ===
+  quiz.questions[current].answer
+    ? score + 1
+    : score;
 
-      setLocalScore(updatedScore);
+setLocalScore(updatedScore);
     }
 
     // Move ONLY Forward
