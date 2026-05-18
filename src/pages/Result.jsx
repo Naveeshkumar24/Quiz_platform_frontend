@@ -126,7 +126,7 @@ const Result = () => {
     );
 
     // Save PDF
-    doc.save("AlmaBetter-Certificate.pdf");
+    doc.save("AlmaBetter-Certificate.pdf"|| `${user.name}-Certificate.pdf`);
   };
 
   return (
