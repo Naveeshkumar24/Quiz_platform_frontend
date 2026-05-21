@@ -172,7 +172,7 @@ const Quiz = () => {
   if (!quiz) {
     return (
       <div className="flex justify-center items-center h-screen bg-black text-white text-4xl font-bold">
-        Quiz Not Found
+        Quiz Not Found!!
       </div>
     );
   }
