@@ -2,18 +2,14 @@ import { useSelector } from "react-redux";
 import jsPDF from "jspdf";
 
 const Result = () => {
-  const { score } = useSelector(
-    (state) => state.quiz
-  );
+  const { score } = useSelector((state) => state.quiz);
 
-  const user =
-    JSON.parse(localStorage.getItem("user")) || {};
+  const user = JSON.parse(localStorage.getItem("user")) || {};
 
-  const scores =
-    JSON.parse(localStorage.getItem("scores")) || [];
+  const scores = JSON.parse(localStorage.getItem("scores")) || [];
 
   const latestQuiz =
-    scores[scores.length - 1] || {};
+    scores.filter((item) => item.username === user.name).slice(-1)[0] || {};
 
   const downloadPDF = () => {
     const doc = new jsPDF("landscape");
@@ -32,115 +28,73 @@ const Result = () => {
     doc.setFontSize(28);
     doc.setTextColor(0, 51, 102);
 
-    doc.text(
-      "AlmaBetter Quiz Certificate",
-      148,
-      40,
-      { align: "center" }
-    );
+    doc.text("AlmaBetter Quiz Certificate", 148, 40, { align: "center" });
 
     // Subtitle
     doc.setFontSize(18);
     doc.setTextColor(80);
 
-    doc.text(
-      "Certificate of Achievement",
-      148,
-      60,
-      { align: "center" }
-    );
+    doc.text("Certificate of Achievement", 148, 60, { align: "center" });
 
     // Presented To
     doc.setFontSize(16);
 
-    doc.text(
-      "This certificate is proudly presented to",
-      148,
-      85,
-      { align: "center" }
-    );
+    doc.text("This certificate is proudly presented to", 148, 85, {
+      align: "center",
+    });
 
     // Username
     doc.setFontSize(30);
     doc.setTextColor(0, 102, 204);
 
-    doc.text(
-      user.name || "Student",
-      148,
-      105,
-      { align: "center" }
-    );
+    doc.text(user.name || "Student", 148, 105, { align: "center" });
 
     // Quiz Details
     doc.setFontSize(18);
     doc.setTextColor(50);
 
-    doc.text(
-      `For successfully completing the quiz`,
-      148,
-      125,
-      { align: "center" }
-    );
+    doc.text(`For successfully completing the quiz`, 148, 125, {
+      align: "center",
+    });
 
     // Quiz Title
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
 
-    doc.text(
-      latestQuiz.quiz || "Quiz Platform",
-      148,
-      142,
-      { align: "center" }
-    );
+    doc.text(latestQuiz.quiz || "Quiz Platform", 148, 142, { align: "center" });
 
     // Score
     doc.setFont("helvetica", "normal");
     doc.setFontSize(18);
 
-    doc.text(
-      `Score Achieved: ${score}`,
-      148,
-      160,
-      { align: "center" }
-    );
+    doc.text(`Score Achieved: ${score}`, 148, 160, { align: "center" });
 
     // Date
     doc.setFontSize(14);
 
-    doc.text(
-      `Date: ${new Date().toLocaleDateString()}`,
-      148,
-      178,
-      { align: "center" }
-    );
+    doc.text(`Date: ${new Date().toLocaleDateString()}`, 148, 178, {
+      align: "center",
+    });
 
     // Footer
     doc.setFontSize(12);
     doc.setTextColor(120);
 
-    doc.text(
-      "Powered by Quiz Platform",
-      148,
-      192,
-      { align: "center" }
-    );
+    doc.text("Powered by Quiz Platform", 148, 192, { align: "center" });
 
-// Save PDF
-doc.save(
-  user?.name && latestQuiz?.quiz
-    ? `${user.name}-${latestQuiz.quiz}-Certificate.pdf`
-    : "AlmaBetter-Certificate.pdf"
-);
+    // Save PDF
+    doc.save(
+      user?.name && latestQuiz?.quiz
+        ? `${user.name}-${latestQuiz.quiz}-Certificate.pdf`
+        : "AlmaBetter-Certificate.pdf",
+    );
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 flex justify-center items-center p-6">
       <div className="bg-white max-w-3xl w-full rounded-3xl shadow-2xl p-10 text-center border-8 border-blue-500">
-        
         {/* Header */}
-        <h1 className="text-5xl font-bold text-blue-700 mb-4">
-          AlmaBetter
-        </h1>
+        <h1 className="text-5xl font-bold text-blue-700 mb-4">AlmaBetter</h1>
 
         <h2 className="text-3xl font-semibold text-gray-700 mb-8">
           Certificate of Achievement
@@ -167,9 +121,7 @@ doc.save(
 
         {/* Score */}
         <div className="bg-blue-100 rounded-2xl p-6 mb-8">
-          <h2 className="text-4xl font-bold text-blue-700">
-            Score: {score}
-          </h2>
+          <h2 className="text-4xl font-bold text-blue-700">Score: {score}</h2>
         </div>
 
         {/* Date */}

@@ -1,16 +1,30 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const quizSlice = createSlice({
-  name: 'quiz',
+  name: "quiz",
+
   initialState: {
     score: 0,
   },
-  reducers: {
-    setScore: (state, action) => {
-      state.score = action.payload
-    },
-  },
-})
 
-export const { setScore } = quizSlice.actions
-export default quizSlice.reducer
+  reducers: {
+
+    // Set Score
+    setScore: (state, action) => {
+      state.score = action.payload;
+    },
+
+    // Reset Score
+    resetScore: (state) => {
+      state.score = 0;
+    },
+
+  },
+});
+
+export const {
+  setScore,
+  resetScore,
+} = quizSlice.actions;
+
+export default quizSlice.reducer;
