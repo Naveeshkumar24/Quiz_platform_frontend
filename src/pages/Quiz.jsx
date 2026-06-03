@@ -10,7 +10,11 @@ const Quiz = () => {
   // Reset score when quiz starts
   useEffect(() => {
     dispatch(resetScore());
-  }, []);
+
+    setLocalScore(0);
+
+    localStorage.removeItem(`quizScore_${id}`);
+  }, [dispatch, id]);
 
   const quizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
 
@@ -65,9 +69,7 @@ const Quiz = () => {
   );
 
   // Score
-  const [score, setLocalScore] = useState(
-    Number(localStorage.getItem(`quizScore_${id}`)) || 0,
-  );
+  const [score, setLocalScore] = useState(0);
 
   // Timer
   const [time, setTime] = useState(() => {
@@ -88,9 +90,8 @@ const Quiz = () => {
 
   // Save Score
   useEffect(() => {
-    localStorage.setItem(`quizScore_${id}`, score);
-  }, [score]);
-
+    localStorage.setItem(`quizScore_${id}`, JSON.stringify(score));
+  }, [score, id]);
   // Timer Logic
   useEffect(() => {
     if (time <= 0) {
@@ -113,13 +114,19 @@ const Quiz = () => {
     // Save Scores
     const scores = JSON.parse(localStorage.getItem("scores")) || [];
 
-    scores.push({
-      username: user.name,
-      score: finalScore,
-      quiz: quiz.title,
-      quizId: quiz.id,
-      date: new Date().toLocaleDateString(),
-    });
+    const existingAttempt = scores.find(
+      (item) => item.username === user.name && item.quizId === quiz.id,
+    );
+
+    if (!existingAttempt) {
+      scores.push({
+        username: user.name,
+        score: finalScore,
+        quiz: quiz.title,
+        quizId: quiz.id,
+        date: new Date().toLocaleDateString(),
+      });
+    }
 
     localStorage.setItem("scores", JSON.stringify(scores));
 
